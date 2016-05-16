@@ -1,0 +1,11 @@
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+
+    dependencies {
+        classpath "org.roboscratch.gradle:gradle-robot:1.0.0"
+    }
+}
+
+apply plugin: "org.roboscratch.robot"

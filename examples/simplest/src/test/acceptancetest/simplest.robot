@@ -1,0 +1,3 @@
+*** Testcases ***
+Simplest Way to run a Robot Test Suite
+  Log  Simplest way to run ...
