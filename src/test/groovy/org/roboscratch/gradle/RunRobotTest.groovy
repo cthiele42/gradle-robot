@@ -307,26 +307,4 @@ class RunRobotTest {
         assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'First Test']"))
         assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'Second Test']"))
     }
-
-    @Test
-    public void rerunfailed() {
-        Project project = ProjectBuilder.builder().build()
-        project.pluginManager.apply 'org.roboscratch.robot'
-
-        def  task = project.task("rerunfail", type: RunRobot) {
-            outputdir = "build/results-rerunfail"
-            data_sources = "src/test/acceptancetest/rerunfailed"
-            ignoreFailures = true
-        }
-        task.execute()
-
-        //rerunfailed
-        def  taskrerun = project.task("rerunfailed", type: RunRobot) {
-            outputdir = "build/results-rerunfailed"
-            data_sources = "src/test/acceptancetest/rerunfailed"
-            variables = "VAR1:valueOfVar1"
-            rerunfailed = "build/results-rerunfail/output.xml"
-        }
-        task.execute()
-    }
 }

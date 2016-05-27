@@ -26,7 +26,7 @@ import org.gradle.api.GradleException
 import org.robotframework.RobotFramework
 
 class RunRobot extends DefaultTask {
-    def outputdir = "target"
+    def outputdir = "build/robot-results"
     def data_sources = "src/test/acceptancetest"
     def variablefiles = null
     def variables = null
@@ -161,7 +161,6 @@ class RunRobot extends DefaultTask {
         if(suitename != null) {
             arguments += "-N"
             arguments += suitename
-
         }
         if(suitedoc != null) {
             arguments += "-D"
