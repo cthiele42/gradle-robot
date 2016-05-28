@@ -40,12 +40,10 @@ class RunRobot extends DefaultTask {
     def rerunfailed = null
     def include = null
     def exclude = null
+    def debugfile = null
 
 /*
-    -c, --critical <tag>
-    Tests that have the given tag are considered critical.
-    -n, --noncritical <tag>
-    Tests that have the given tag are not critical.
+  Prio 2
     -o, --output <file>
     Sets the path to the generated output file.
     -l, --log <file>
@@ -53,11 +51,28 @@ class RunRobot extends DefaultTask {
     -r, --report <file>
     Sets the path to the generated report file.
     -x, --xunit <file>
+    Excludes these tags from the Statistics by Tag table.
+    --tagstatcombine <tags:title>
+    Creates combined statistics based on tags.
+    --tagdoc <pattern:doc>
+    -W, --consolewidth <width>
+    Sets the width of the console output.
+    Show markers on the console when top level keywords in a test case end.
+    -P, --pythonpath <path>
+    Additional locations to add to the module search path.
+    -E, --escape <what:with>
+    Escapes characters that are problematic in the console.
+    -A, --argumentfile <path>
+    A text file to read more arguments from.
+
+  Prio 3
+    -c, --critical <tag>
+    Tests that have the given tag are considered critical.
+    -n, --noncritical <tag>
+    Tests that have the given tag are not critical.
     Sets the path to the generated xUnit compatible result file.
     --xunitskipnoncritical
     Mark non-critical tests on xUnit compatible result file as skipped.
-    -b, --debugfile <file>
-    A debug file that is written during execution.
     -T, --timestampoutputs
     Adds a timestamp to all output files.
     --splitlog 	Split log file into smaller pieces that open in browser transparently.
@@ -74,10 +89,6 @@ class RunRobot extends DefaultTask {
     --tagstatinclude <tag>
     Includes only these tags in the Statistics by Tag table.
     --tagstatexclude <tag>
-    Excludes these tags from the Statistics by Tag table.
-    --tagstatcombine <tags:title>
-    Creates combined statistics based on tags.
-    --tagdoc <pattern:doc>
     Adds documentation to the specified tags.
     --tagstatlink <pattern:link:title>
     Adds external links to the Statistics by Tag table.
@@ -108,18 +119,9 @@ class RunRobot extends DefaultTask {
     Console output type.
     --dotted 	Shortcut for --console dotted.
     --quiet 	Shortcut for --console quiet.
-    -W, --consolewidth <width>
-    Sets the width of the console output.
     -C, --consolecolors <auto|on|ansi|off>
     Specifies are colors used on the console.
     -K, --consolemarkers <auto|on|off>
-    Show markers on the console when top level keywords in a test case end.
-    -P, --pythonpath <path>
-    Additional locations to add to the module search path.
-    -E, --escape <what:with>
-    Escapes characters that are problematic in the console.
-    -A, --argumentfile <path>
-    A text file to read more arguments from.
 */
 
 
@@ -165,6 +167,10 @@ class RunRobot extends DefaultTask {
         }
         arguments = parseArrayArg(arguments, include, "-i")
         arguments = parseArrayArg(arguments, exclude, "-e")
+        if(debugfile != null) {
+            arguments += "-b"
+            arguments += debugfile
+        }
 
         arguments += data_sources
 

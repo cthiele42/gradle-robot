@@ -26,6 +26,8 @@ import static org.junit.Assert.assertThat
 
 import org.xmlunit.builder.Input
 import javax.xml.transform.Source
+
+import static org.junit.Assert.assertTrue
 import static org.xmlunit.matchers.EvaluateXPathMatcher.hasXPath as evalXPath
 import static org.xmlunit.matchers.HasXPathMatcher.hasXPath;
 import static org.hamcrest.CoreMatchers.equalTo
@@ -378,5 +380,25 @@ class RunRobotTest {
         assertThat(output, evalXPath("count(/robot/suite/suite/test)", equalTo("2")))
         assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'No Pattern Match']"))
         assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'Without Tag']"))
+    }
+
+    @Test
+    public void debugFile() {
+        String debugPath = "debug.txt"
+        String outputPath = "build/results-debugFile"
+
+        Project project = ProjectBuilder.builder().build()
+        project.pluginManager.apply 'org.roboscratch.robot'
+
+        def  task = project.task("debugFile", type: RunRobot) {
+            outputdir = outputPath
+            data_sources = "src/test/acceptancetest/data_sources"
+            debugfile = debugPath
+        }
+        task.execute()
+
+        File debugFile = new File(outputPath, debugPath)
+        assertTrue("Debug file not found at " + debugFile.getPath(), debugFile.exists())
+        assertTrue("Debug file does not contain 'START SUITE: Data Sources'", debugFile.getText().contains("START SUITE: Data Sources"))
     }
 }
