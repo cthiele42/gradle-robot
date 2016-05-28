@@ -38,25 +38,14 @@ class RunRobot extends DefaultTask {
     def tags = null
     def tests = null
     def rerunfailed = null
-
+    def include = null
+    def exclude = null
 
 /*
-    -R, --rerunfailed <file>
-    Selects failed tests from an earlier output file to be re-executed.
-    -i, --include <tag>
-    Selects the test cases by tag.
-    -e, --exclude <tag>
-    Selects the test cases by tag.
     -c, --critical <tag>
     Tests that have the given tag are considered critical.
     -n, --noncritical <tag>
     Tests that have the given tag are not critical.
-    -v, --variable <name:value>
-    Sets individual variables.
-    -V, --variablefile <path:args>
-    Sets variables using variable files.
-    -d, --outputdir <dir>
-    Defines where to create output files.
     -o, --output <file>
     Sets the path to the generated output file.
     -l, --log <file>
@@ -174,6 +163,8 @@ class RunRobot extends DefaultTask {
             arguments += "-R"
             arguments += rerunfailed
         }
+        arguments = parseArrayArg(arguments, include, "-i")
+        arguments = parseArrayArg(arguments, exclude, "-e")
 
         arguments += data_sources
 

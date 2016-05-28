@@ -307,4 +307,76 @@ class RunRobotTest {
         assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'First Test']"))
         assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'Second Test']"))
     }
+
+    @Test
+    public void includeSinglePattern() {
+        Project project = ProjectBuilder.builder().build()
+        project.pluginManager.apply 'org.roboscratch.robot'
+
+        def  task = project.task("includeSinglePattern", type: RunRobot) {
+            outputdir = "build/results-includeSinglePattern"
+            data_sources = "src/test/acceptancetest/includeAndExclude"
+            include = ["tobeincluded"]
+        }
+        task.execute()
+
+        Source output = Input.fromFile("build/results-includeSinglePattern/output.xml").build()
+        assertThat(output, evalXPath("count(/robot/suite/suite/test)", equalTo("1")))
+        assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'First Pattern Match']"))
+    }
+
+    @Test
+    public void includeMultiplePattern() {
+        Project project = ProjectBuilder.builder().build()
+        project.pluginManager.apply 'org.roboscratch.robot'
+
+        def  task = project.task("includeMultiplePattern", type: RunRobot) {
+            outputdir = "build/results-includeMultiplePattern"
+            data_sources = "src/test/acceptancetest/includeAndExclude"
+            include = ["tobeincluded", "tobeincludedaswell"]
+        }
+        task.execute()
+
+        Source output = Input.fromFile("build/results-includeMultiplePattern/output.xml").build()
+        assertThat(output, evalXPath("count(/robot/suite/suite/test)", equalTo("2")))
+        assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'First Pattern Match']"))
+        assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'Second Pattern Match']"))
+    }
+
+    @Test
+    public void excludeSinglePattern() {
+        Project project = ProjectBuilder.builder().build()
+        project.pluginManager.apply 'org.roboscratch.robot'
+
+        def  task = project.task("excludeSinglePattern", type: RunRobot) {
+            outputdir = "build/results-excludeSinglePattern"
+            data_sources = "src/test/acceptancetest/includeAndExclude"
+            exclude = ["tobeexcluded"]
+        }
+        task.execute()
+
+        Source output = Input.fromFile("build/results-excludeSinglePattern/output.xml").build()
+        assertThat(output, evalXPath("count(/robot/suite/suite/test)", equalTo("3")))
+        assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'Second Pattern Match']"))
+        assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'No Pattern Match']"))
+        assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'Without Tag']"))
+    }
+
+    @Test
+    public void excludeMultiplePattern() {
+        Project project = ProjectBuilder.builder().build()
+        project.pluginManager.apply 'org.roboscratch.robot'
+
+        def  task = project.task("excludeMultiplePattern", type: RunRobot) {
+            outputdir = "build/results-excludeMultiplePattern"
+            data_sources = "src/test/acceptancetest/includeAndExclude"
+            exclude = ["tobeexcluded", "tobeexcludedaswell"]
+        }
+        task.execute()
+
+        Source output = Input.fromFile("build/results-excludeMultiplePattern/output.xml").build()
+        assertThat(output, evalXPath("count(/robot/suite/suite/test)", equalTo("2")))
+        assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'No Pattern Match']"))
+        assertThat(output, hasXPath("/robot/suite/suite/test[@name = 'Without Tag']"))
+    }
 }
