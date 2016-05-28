@@ -398,4 +398,21 @@ class RunRobotTest {
         assertTrue("Debug file not found at " + debugFile.getPath(), debugFile.exists())
         assertTrue("Debug file does not contain 'START SUITE: Data Sources'", debugFile.getText().contains("START SUITE: Data Sources"))
     }
+
+    @Test
+    public void outputPath() {
+        Project project = ProjectBuilder.builder().build()
+        project.pluginManager.apply 'org.roboscratch.robot'
+
+        def  task = project.task("outputPath", type: RunRobot) {
+            outputdir = "build/results-outputPath"
+            data_sources = "src/test/acceptancetest/data_sources/test.robot"
+            outputpath = "changed-output.xml"
+        }
+        task.execute()
+
+        Source output = Input.fromFile("build/results-outputPath/changed-output.xml").build()
+        assertThat(output, evalXPath("count(/robot/suite)", equalTo("1")))
+        assertThat(output, not(hasXPath("/robot/suite/suite")))
+    }
 }

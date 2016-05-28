@@ -37,11 +37,10 @@ class RunRobot extends DefaultTask {
     def include = null
     def exclude = null
     def debugfile = null
+    def outputpath = null
 
 /*
   Prio 2
-    -o, --output <file>
-    Sets the path to the generated output file.
     -l, --log <file>
     Sets the path to the generated log file.
     -r, --report <file>
@@ -138,6 +137,13 @@ class RunRobot extends DefaultTask {
         return arguments
     }
 
+    def parseSingleArg(arguments, argToParse, optStr) {
+        if(argToParse != null) {
+            arguments += optStr
+            arguments += argToParse
+        }
+        return arguments
+    }
 
     @TaskAction
     def run() {
@@ -145,28 +151,16 @@ class RunRobot extends DefaultTask {
         arguments = parseArrayArg(arguments, variablefiles, "-V")
         arguments = parseArrayArg(arguments, variables, "-v")
         arguments = parseArrayArg(arguments, suites, "-s")
-        if(suitename != null) {
-            arguments += "-N"
-            arguments += suitename
-        }
-        if(suitedoc != null) {
-            arguments += "-D"
-            arguments += suitedoc
-
-        }
+        arguments = parseSingleArg(arguments, suitename, "-N")
+        arguments = parseSingleArg(arguments, suitedoc, "-D")
         arguments = parseArrayArg(arguments, metadata, "-M")
         arguments = parseArrayArg(arguments, tags, "-G")
         arguments = parseArrayArg(arguments, tests, "-t")
-        if(rerunfailed != null) {
-            arguments += "-R"
-            arguments += rerunfailed
-        }
+        arguments = parseSingleArg(arguments, rerunfailed, "-R")
         arguments = parseArrayArg(arguments, include, "-i")
         arguments = parseArrayArg(arguments, exclude, "-e")
-        if(debugfile != null) {
-            arguments += "-b"
-            arguments += debugfile
-        }
+        arguments = parseSingleArg(arguments, debugfile, "-b")
+        arguments = parseSingleArg(arguments, outputpath, "-o")
 
         arguments += data_sources
 
