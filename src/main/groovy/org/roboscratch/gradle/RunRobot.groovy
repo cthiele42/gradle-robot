@@ -38,6 +38,7 @@ class RunRobot extends DefaultTask {
     def exclude = null
     def debugfile = null
     def outputpath = null
+    def log = null
 
 /*
   Prio 2
@@ -161,6 +162,7 @@ class RunRobot extends DefaultTask {
         arguments = parseArrayArg(arguments, exclude, "-e")
         arguments = parseSingleArg(arguments, debugfile, "-b")
         arguments = parseSingleArg(arguments, outputpath, "-o")
+        arguments = parseSingleArg(arguments, log, "-l")
 
         arguments += data_sources
 

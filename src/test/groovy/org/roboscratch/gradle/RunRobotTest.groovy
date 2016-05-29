@@ -415,4 +415,24 @@ class RunRobotTest {
         assertThat(output, evalXPath("count(/robot/suite)", equalTo("1")))
         assertThat(output, not(hasXPath("/robot/suite/suite")))
     }
+
+    @Test
+    public void logFile() {
+        String outputPath = "build/results-logFile"
+        String logFileName = "changed-log.html"
+
+        Project project = ProjectBuilder.builder().build()
+        project.pluginManager.apply 'org.roboscratch.robot'
+
+        def  task = project.task("logFile", type: RunRobot) {
+            outputdir = outputPath
+            data_sources = "src/test/acceptancetest/data_sources/test.robot"
+            log = logFileName
+        }
+        task.execute()
+
+        File logFile = new File(outputPath, logFileName)
+        assertTrue("Log file not found at " + logFile.getPath(), logFile.exists())
+        assertTrue("Log file does not contain '<html>'", logFile.getText().contains("<html>"))
+    }
 }
