@@ -34,7 +34,7 @@ import static org.xmlunit.matchers.HasXPathMatcher.hasXPath
 class RerunFailedTest {
     @Test
     public void rerunfailed() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("rerunfail", type: RunRobot) {

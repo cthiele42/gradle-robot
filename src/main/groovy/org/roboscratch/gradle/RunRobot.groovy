@@ -16,6 +16,7 @@
 package org.roboscratch.gradle
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.GradleException
 
@@ -42,8 +43,6 @@ class RunRobot extends DefaultTask {
 
 /*
   Prio 2
-    -l, --log <file>
-    Sets the path to the generated log file.
     -r, --report <file>
     Sets the path to the generated report file.
     -x, --xunit <file>
@@ -138,6 +137,21 @@ class RunRobot extends DefaultTask {
         return arguments
     }
 
+    def parseFileArrayArg(arguments, argToParse, optStr) {
+        if(argToParse != null) {
+            if(argToParse instanceof String) {
+                arguments += optStr
+                arguments += project.file(argToParse).absolutePath
+            } else {
+                argToParse.each {
+                    arguments += optStr
+                    arguments += project.file(it).absolutePath
+                }
+            }
+        }
+        return arguments
+    }
+
     def parseSingleArg(arguments, argToParse, optStr) {
         if(argToParse != null) {
             arguments += optStr
@@ -148,8 +162,8 @@ class RunRobot extends DefaultTask {
 
     @TaskAction
     def run() {
-        def arguments = ["-d", outputdir]
-        arguments = parseArrayArg(arguments, variablefiles, "-V")
+        def arguments =  ["-d", project.file(outputdir).absolutePath]
+        arguments = parseFileArrayArg(arguments, variablefiles, "-V")
         arguments = parseArrayArg(arguments, variables, "-v")
         arguments = parseArrayArg(arguments, suites, "-s")
         arguments = parseSingleArg(arguments, suitename, "-N")
@@ -164,7 +178,8 @@ class RunRobot extends DefaultTask {
         arguments = parseSingleArg(arguments, outputpath, "-o")
         arguments = parseSingleArg(arguments, log, "-l")
 
-        arguments += data_sources
+        FileCollection sourcesAsFile = project.files(data_sources)
+        sourcesAsFile.each { File file -> arguments += file.absolutePath}
 
         rc = RobotFramework.run((String[])arguments)
         if(!ignoreFailures && rc != 0) {

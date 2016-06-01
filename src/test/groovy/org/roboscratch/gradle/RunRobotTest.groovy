@@ -34,7 +34,7 @@ import org.gradle.api.GradleException
 class RunRobotTest {
     @Test
     public void executeSingleFile() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("executeSingleFile", type: RunRobot) {
@@ -50,7 +50,7 @@ class RunRobotTest {
 
     @Test
     public void executeMultipleFiles() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("executeMultipleFiles", type: RunRobot) {
@@ -66,7 +66,7 @@ class RunRobotTest {
 
     @Test
     public void singleVariableFile() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("singleVariableFile", type: RunRobot) {
@@ -79,7 +79,7 @@ class RunRobotTest {
 
     @Test
     public void multipleVariableFiles() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("multipleVariableFiles", type: RunRobot) {
@@ -92,7 +92,7 @@ class RunRobotTest {
 
     @Test(expected = GradleException.class)
     public void testFailure() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("testFailure", type: RunRobot) {
@@ -104,7 +104,7 @@ class RunRobotTest {
 
     @Test
     public void ignoreFailure() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("ignoreFailure", type: RunRobot) {
@@ -117,7 +117,7 @@ class RunRobotTest {
 
     @Test
     public void singleVariable() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("singleVariable", type: RunRobot) {
@@ -130,7 +130,7 @@ class RunRobotTest {
 
     @Test
     public void multipleVariables() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("multipleVariables", type: RunRobot) {
@@ -143,7 +143,7 @@ class RunRobotTest {
 
     @Test
     public void singleSuite() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("singleSuite", type: RunRobot) {
@@ -156,7 +156,7 @@ class RunRobotTest {
 
     @Test
     public void multipleSuites() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("multipleSuites", type: RunRobot) {
@@ -173,7 +173,7 @@ class RunRobotTest {
 
     @Test
     public void customSuiteName() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("customSuiteName", type: RunRobot) {
@@ -189,7 +189,7 @@ class RunRobotTest {
 
     @Test
     public void customSuiteDoc() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("customSuiteDoc", type: RunRobot) {
@@ -205,7 +205,7 @@ class RunRobotTest {
 
     @Test
     public void singleMetadata() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("singleMetadata", type: RunRobot) {
@@ -222,7 +222,7 @@ class RunRobotTest {
 
     @Test
     public void multipleMetadata() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("multipleMetadata", type: RunRobot) {
@@ -239,7 +239,7 @@ class RunRobotTest {
     }
     @Test
     public void singleTag() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("singleTag", type: RunRobot) {
@@ -256,7 +256,7 @@ class RunRobotTest {
 
     @Test
     public void multipleTags() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("multipleTags", type: RunRobot) {
@@ -274,7 +274,7 @@ class RunRobotTest {
 
     @Test
     public void singleTest() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("singleTest", type: RunRobot) {
@@ -291,7 +291,7 @@ class RunRobotTest {
 
     @Test
     public void multipleTests() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("multipleTests", type: RunRobot) {
@@ -309,7 +309,7 @@ class RunRobotTest {
 
     @Test
     public void includeSinglePattern() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("includeSinglePattern", type: RunRobot) {
@@ -326,7 +326,7 @@ class RunRobotTest {
 
     @Test
     public void includeMultiplePattern() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("includeMultiplePattern", type: RunRobot) {
@@ -344,7 +344,7 @@ class RunRobotTest {
 
     @Test
     public void excludeSinglePattern() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("excludeSinglePattern", type: RunRobot) {
@@ -363,7 +363,7 @@ class RunRobotTest {
 
     @Test
     public void excludeMultiplePattern() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("excludeMultiplePattern", type: RunRobot) {
@@ -384,7 +384,7 @@ class RunRobotTest {
         String debugPath = "debug.txt"
         String outputPath = "build/results-debugFile"
 
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("debugFile", type: RunRobot) {
@@ -401,7 +401,7 @@ class RunRobotTest {
 
     @Test
     public void outputPath() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("outputPath", type: RunRobot) {
@@ -421,7 +421,7 @@ class RunRobotTest {
         String outputPath = "build/results-logFile"
         String logFileName = "changed-log.html"
 
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
         project.pluginManager.apply 'org.roboscratch.robot'
 
         def  task = project.task("logFile", type: RunRobot) {
