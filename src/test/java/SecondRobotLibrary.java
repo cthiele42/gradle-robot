@@ -14,18 +14,20 @@
  *  limitations under the License.
  */
 
-package org.roboscratch.gradle
+import org.robotframework.javalib.library.AnnotationLibrary;
 
-import org.gradle.api.Project
-import org.gradle.api.Plugin
-import org.gradle.api.Task
+/**
+ * Created by cthiele on 12.06.16.
+ */
+public class SecondRobotLibrary extends AnnotationLibrary {
+    public SecondRobotLibrary() {
+        addKeywordPattern("org/roboscratch/gradle/*.class");
+    }
 
-class RobotPlugin implements Plugin<Project> {
-    void apply(Project project) {
-        Task runrobotTask = project.task("runrobot", type: RunRobot)
-        runrobotTask.description = "Executes Robot Framework tests"
-
-        Task libdocTask = project.task("libdoc", type: LibDoc)
-        runrobotTask.description = "Creates library documentation for Robotframework keyword libraries"
+    @Override
+    public String getKeywordDocumentation(String keywordName) {
+        if (keywordName.equals("__intro__"))
+            return "Second Robot Library.";
+        return super.getKeywordDocumentation(keywordName);
     }
 }

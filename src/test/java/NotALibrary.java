@@ -14,18 +14,5 @@
  *  limitations under the License.
  */
 
-package org.roboscratch.gradle
-
-import org.gradle.api.Project
-import org.gradle.api.Plugin
-import org.gradle.api.Task
-
-class RobotPlugin implements Plugin<Project> {
-    void apply(Project project) {
-        Task runrobotTask = project.task("runrobot", type: RunRobot)
-        runrobotTask.description = "Executes Robot Framework tests"
-
-        Task libdocTask = project.task("libdoc", type: LibDoc)
-        runrobotTask.description = "Creates library documentation for Robotframework keyword libraries"
-    }
+public class NotALibrary {
 }

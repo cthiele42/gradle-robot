@@ -17,6 +17,7 @@
 plugins {
     id 'net.linguica.maven-settings' version '0.5'
     id 'groovy'
+    id 'java'
     id 'maven'
 }
 
@@ -37,6 +38,8 @@ dependencies {
     compile gradleApi()
     compile localGroovy()
     compile 'org.robotframework:robotframework:3.0'
+    compile 'org.robotframework:javalib-core:1.2.1'
+    compile 'com.google.guava:guava:19.0'
     testCompile 'org.xmlunit:xmlunit-core:2.1.1'
     testCompile 'org.xmlunit:xmlunit-matchers:2.1.1'
 }

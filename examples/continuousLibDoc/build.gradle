@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         mavenLocal()
-        maven {}
     }
 
     dependencies {
@@ -9,4 +8,13 @@ buildscript {
     }
 }
 
+plugins {
+    id 'net.linguica.maven-settings' version '0.5'
+    id 'maven'
+}
+
 apply plugin: "org.roboscratch.robot"
+
+task('contLibDoc', type: org.roboscratch.gradle.LibDoc) {
+    addAllResourcesFromDirectory('resources')
+}
