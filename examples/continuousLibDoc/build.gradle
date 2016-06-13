@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.roboscratch.gradle:gradle-robot:1.0.0"
+        classpath "org.roboscratch.gradle:gradle-robot:0.1.0"
     }
 }
 
