@@ -15,6 +15,4 @@ plugins {
 
 apply plugin: "org.roboscratch.robot"
 
-task('contLibDoc', type: org.roboscratch.gradle.LibDoc) {
-    addAllResourcesFromDirectory('resources')
-}
+libdoc.addAllResourcesFromDirectory('resources')

@@ -28,7 +28,7 @@ repositories {
 }
 
 group = 'org.roboscratch.gradle'
-version = '0.1.0'
+version = '0.1.1'
 
 tasks.withType(GroovyCompile) {
     sourceCompatibility = '1.7'

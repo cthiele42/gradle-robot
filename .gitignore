@@ -1,8 +1,9 @@
 .idea
 *.class
 examples/**/build
-gradle
+gradle/**
 gradlew
 gradlew.bat
 libnative-*
 examples/**/.gradle
+robot-indices

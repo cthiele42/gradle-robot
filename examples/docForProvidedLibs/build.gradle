@@ -1,0 +1,6 @@
+plugins {
+    id "org.roboscratch.robot" version "0.1.0"
+}
+
+libdoc.outputdir = 'robot-indices'
+libdoc.addAllProvided()
