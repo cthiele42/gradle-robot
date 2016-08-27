@@ -1,0 +1,23 @@
+/*
+  This buildscript shows the usage of external java libraries.
+  External java libraries have to be put on the buildscript classpath, i.e. inside the buildscript {} block
+
+  In the script below we do not define any repository - the default repository will be used in that case: https://plugins.gradle.org/m2
+
+  To reference locally stored custom keyword libraries, refer to the gradle documentation:
+    https://docs.gradle.org/current/userguide/dependency_management.html#sub:file_dependencies
+
+  Execute the test by: gradle runrobot
+
+  The test is using the external robotframeowrk-dblibrary and is expecting an error while running a keyword from that library.
+ */
+
+buildscript {
+    dependencies {
+        classpath "com.github.hi-fi:robotframework-dblibrary:3.0"
+    }
+}
+
+plugins {
+    id "org.roboscratch.robot" version "0.1.1"
+}
