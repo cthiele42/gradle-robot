@@ -1,0 +1,42 @@
+/**
+ * This buildscript adds compiled classes to the classpath of the runrobot task.
+ * This way, a keyword library can be compiled and used by the robotframework in one gradle build run.
+ *
+ * This will not work in conjunction with the gradle daemon - the build has to be started with the option --no-daemon.
+ *
+ */
+
+buildscript {
+    dependencies {
+        /*
+         * dependencies of the keyword library have to be written down twice in the build script -
+         * a second time the will appear in the compile dependencies
+         * TODO Perhaps we can define a costum configuration and reference the deps from there?
+         */
+        classpath 'org.robotframework:javalib-core:1.2.1'
+
+        /**
+         * TODO We could use properties of the Java task here to make it more flexible
+         */
+        classpath files('build/classes/main')
+        //if needed, resources path has to added here as well
+    }
+}
+
+plugins {
+    id 'java'
+    id "org.roboscratch.robot" version "0.1.1"
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    /*
+     * ... same as in buildscript dependencies
+     */
+    compile 'org.robotframework:javalib-core:1.2.1'
+}
+
+runrobot.dependsOn build //this will trigger a full java build before running the robot tests
