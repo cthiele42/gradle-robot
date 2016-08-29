@@ -18,7 +18,7 @@ buildscript {
         /**
          * TODO We could use properties of the Java task here to make it more flexible
          */
-        classpath files('build/classes/main')
+        classpath files(mkdir('build/classes/main'))
         //if needed, resources path has to added here as well
     }
 }
