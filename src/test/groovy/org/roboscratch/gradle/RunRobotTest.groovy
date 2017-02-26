@@ -435,4 +435,22 @@ class RunRobotTest {
         assertTrue("Log file not found at " + logFile.getPath(), logFile.exists())
         assertTrue("Log file does not contain '<html>'", logFile.getText().contains("<html>"))
     }
+
+    @Test
+    public void log() {
+        String outputPath = "build/results-log"
+
+        Project project = ProjectBuilder.builder().withProjectDir(new File("").absoluteFile).build()
+        project.pluginManager.apply 'org.roboscratch.robot'
+
+        def  task = project.task("log", type: RunRobot) {
+            outputdir = outputPath
+            data_sources = "src/test/acceptancetest/log/log.robot"
+        }
+        task.execute()
+
+        File logFile = new File(outputPath, "log.html")
+        assertTrue("Log file not found at " + logFile.getPath(), logFile.exists())
+        assertTrue("Log file does not contain 'Foo42'", logFile.getText().contains("Foo42"))
+    }
 }

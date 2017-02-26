@@ -181,6 +181,9 @@ class RunRobot extends DefaultTask {
         FileCollection sourcesAsFile = project.files(data_sources)
         sourcesAsFile.each { File file -> arguments += file.absolutePath}
 
+        //This will bring up Log messages in the report html
+        Thread.currentThread().setName("MainThread");
+
         rc = RobotFramework.run((String[])arguments)
         if(!ignoreFailures && rc != 0) {
             throw new GradleException("Test failed with return code " + rc);
